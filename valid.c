@@ -27,7 +27,7 @@ int validChar(char ch) {
 
 int validFn(char target[]) {
     int i, j;
-    int tokenNo = 0, isValid = 0, fnNo = 0, extNo = 0;
+    int tokenNo = 0, isValid = 0, fnNo, extNo;
     char *fn[1023], *token;
 
     if (strcmp(target, "/") == 0)
@@ -43,6 +43,7 @@ int validFn(char target[]) {
     }
 
     for (i = 0; i < tokenNo; i++) {
+        fnNo=0,extNo=0;
         //Cannot exceed 12 chars
         if (strlen(fn[i]) > 12)
             return 0;
@@ -68,13 +69,17 @@ int validFn(char target[]) {
                         extNo++;
                 }
 
-            if (fnNo > 8)
+            if (fnNo > 8){
+                printf("Bye1\n");
                 return 0;
+            }
             else
                 isValid = 1;
 
-            if (extNo > 3)
+            if (extNo > 3){
+                printf("Bye2\n");
                 return 0;
+            }
             else
                 isValid = 1;
         }

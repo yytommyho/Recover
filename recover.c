@@ -1,15 +1,13 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/wait.h>
 #include <sys/types.h>
-#include <fcntl.h>
+#include <sys/wait.h>
 #include <string.h>
 #include "valid.h"
 #include "list.h"
-#define MAX_LENGTH 255
 
+#define MAX_LENGTH 255
 
 int main(int arg_count, char *args[]) {
 
@@ -17,8 +15,7 @@ int main(int arg_count, char *args[]) {
     invalidType = isInvalidArg(arg_count,args);
     
     if (invalidType == 0) {
-        //list_file(arg_count,args);
-        printf("OK!\n");
+        list_file(arg_count,args);
     } else {
         printf("Usage:./recover -d [device filename] [other argument]\n");
         if (invalidType !=2)
