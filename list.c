@@ -5,8 +5,14 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include <string.h>
+#include <ctype.h>
 #include "list.h"
-void file83(int f_count, char** f_arr, char* f_n, char temp[12]){
+
+void reset(char temp[12]){
+	int i;	
+	for (i=0;i<12;i++) temp[i]='\0';
+}
+void file83(int f_count, char f_arr[512][13], char* f_n, char temp[12]){
     int i,j=8,pos,count=1,flag = 0;
     
     for (pos=0; pos<strlen(f_n); pos++)
@@ -20,6 +26,9 @@ void file83(int f_count, char** f_arr, char* f_n, char temp[12]){
             for (i=0; i<6; i++)
                 temp[i] = (char)toupper((int)f_n[i]);
             temp[6] = '~';
+            for(i=0;i<f_count-1;i++)
+                if (!strncmp((f_arr[i]),temp,6))
+                    count++;
             temp[7] = (char)(count + 48); 
             for (i = pos; i<strlen(f_n); i++){
                 temp[j] = f_n[i];
@@ -39,6 +48,9 @@ void file83(int f_count, char** f_arr, char* f_n, char temp[12]){
             for (i=0; i<6; i++)
                 temp[i] = (char)toupper((int)f_n[i]);
             temp[6] = '~';
+            for(i=0;i<f_count-1;i++)
+                if (!strncmp((f_arr[i]),temp,6))
+                    count++;
             temp[7] = (char)(count + 48);
             for (i=8;i<12;i++)
                 temp[i]='\0';
@@ -50,6 +62,7 @@ void file83(int f_count, char** f_arr, char* f_n, char temp[12]){
                 temp[i] = '\0';
         }
     }
+    strcpy(f_arr[f_count-1],temp);
 }
 
 
@@ -59,7 +72,7 @@ void list_file(int arg_count, char** args){
 	struct stat f_stat;
 	int pos,f_count= 1;
 	char buff[512];
-    char *file_name_arr[512];
+    char file_name_arr[512][13];
     char f_name[12];
 	for (pos=0; pos < arg_count; pos++)
 		if (!strcmp(args[pos],"-l"))
@@ -72,6 +85,7 @@ void list_file(int arg_count, char** args){
         stat(buff, &f_stat);
         file83(f_count, file_name_arr, files->d_name,f_name);
         printf(" %s, %zu\n", f_name,f_stat.st_size);
+		reset(f_name);
         f_count++;
     }
     closedir(dir);

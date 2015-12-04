@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>list.h</itemPath>
       <itemPath>valid.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -14,7 +15,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>list.c</itemPath>
-      <itemPath>list.h</itemPath>
       <itemPath>recover.c</itemPath>
       <itemPath>valid.c</itemPath>
     </logicalFolder>
